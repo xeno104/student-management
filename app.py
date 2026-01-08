@@ -2,30 +2,53 @@
 from backend.database import check_database_exist, create_table
 from frontend.loginScreen import loginScreen
 from frontend.register_screen import registerScreen
+import pandas as pd
 
 logged_in = 0
 
+def register(auth_table_name):
+    create = create_table(auth_table_name)
+    if(not create):
+        print("Auth Table Creation Error!!")
+        return 0
+            
+    register = registerScreen()
+ 
+        
+    if register:
+        try: 
+            auth_table = open('./database/'+auth_table_name, 'a')
+            auth_table.write(f'\n0,{register[0]},{register[1]},{register[2]}')
+        except:
+            print("Error While Registering!!!")
+        else:
+            print("Resgistered Successful.. :)")
+            loginScreen()
+                
+    else:
+        print("Error while Registering Admin!!")
+        return 0
+
+
+
 def main():
     
-    db_check_result = check_database_exist()
+    auth_table_name = 'auth-table.csv'
+    credentials = False
+    db_check_result = check_database_exist(auth_table_name)
     
     if(db_check_result):
+        credentials = pd.read_csv('./database/'+auth_table_name, nrows=1)
+    
+    if(db_check_result and not credentials.empty):
+
         if(logged_in == 0):
             loginScreen()
-    
-    else:
-        
-        create = create_table("auth-table.csv")
-        if(not create):
-            print("Something went wrong!")
-            main()
             
-        register = registerScreen()
+    else:
+        register(auth_table_name)
         
-        if register:
-            registerScreen
-        else:
-            pass
+        
             
         
         
