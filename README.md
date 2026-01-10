@@ -1,4 +1,4 @@
 # Student Management Portal
 
 
-![Architecture Diagram](images/architecture_daigram.svg)
+![Architecture Diagram](images/architecture_daigram)
