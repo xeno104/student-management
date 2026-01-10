@@ -9,15 +9,18 @@ try:
     password="root",
     database="student_management"
     )
+    mycursor = mydb.cursor()
 except mysql.connector.Error as err: 
     print(f"Database connection failed {err}")
+else:
+    print("Database connected successfully")
+    
 
 
-print("Database connected successfully")
     
-mycursor = mydb.cursor()
-    
-mycursor.execute("SHOW TABLES")
+
+
+mycursor.execute("SELECT * FROM user;")
 
 tables = mycursor.fetchall()
 print(tables)
