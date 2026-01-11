@@ -1,27 +1,26 @@
 import mysql.connector
 
 
-try: 
-    mydb = mysql.connector.connect(
-    host="localhost",
-    port=3306,
-    user="root",
-    password="root",
-    database="student_management"
-    )
-    mycursor = mydb.cursor()
-except mysql.connector.Error as err: 
-    print(f"Database connection failed {err}")
-else:
-    print("Database connected successfully")
+def connect_database():
+    try: 
+        mydb = mysql.connector.connect(
+        host="database-2.cjg8o8cmckqi.ap-south-1.rds.amazonaws.com",
+        port=3306,
+        user="admin",
+        password="$*5H3_Xs4#PN>~",
+        database="database2"
+        )
+        mycursor = mydb.cursor()
+        
+        
+    except mysql.connector.Error as err: 
+        print(f"Database connection failed {err}")
+    else:
+        print("Database connected successfully")
+
+connect_database()
+
+def login(username, password):
     
-
-
+    pass
     
-
-
-mycursor.execute("SELECT * FROM user;")
-
-tables = mycursor.fetchall()
-print(tables)
-
